@@ -26,5 +26,9 @@ client.on('message', (channel, tags, message, self) => {
         case 'hola':
             client.say(channel, `¡Hola, @${tags.username}!`);
         break;
+
+        case '!ban':
+            client.say(channel, `¿${tags.username}? ¡Banéenme a ese wey!`);
+        break;
     }
 });
