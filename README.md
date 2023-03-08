@@ -1,2 +1,3 @@
-# mikasabxt
+# MikasaBxt
+
 Twitch Chatbot

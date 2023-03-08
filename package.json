@@ -1,20 +1,28 @@
 {
-  "name": "mikasabxt",
-  "version": "1.0.0",
-  "description": "Twitch Node.js Chatbot",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "Twitch",
-    "node.js",
-    "chatbot"
-  ],
-  "author": "Lxght",
-  "license": "ISC",
-  "dependencies": {
-    "dotenv": "^16.0.3",
-    "tmi.js": "^1.8.5"
-  }
+	"name": "mikasabxt",
+	"version": "1.0.0",
+	"description": "Twitch Node.js Chatbot",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/mikasab/mikasabxt.git"
+	},
+	"keywords": [
+		"Twitch",
+		"node.js",
+		"chatbot"
+	],
+	"author": "Lxght",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/mikasab/mikasabxt/issues"
+	},
+	"home": "https://github.com/mikasab/mikasabxt#readme",
+	"dependencies": {
+		"dotenv": "^16.0.3",
+		"tmi.js": "^1.8.5"
+	}
 }
