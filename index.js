@@ -14,7 +14,7 @@ const client = new tmi.Client({
         username: `${process.env.TWITCH_USERNAME}`,
         password: `oauth:${process.env.TWITCH_OAUTH}`
     },
-    channels: [`${process.env.TWITCH_CHANNEL}`,`${process.env.TWITCH_CHANNEL2}`,`${process.env.TWITCH_CHANNEL3}`]
+    channels: [`${process.env.TWITCH_CHANNEL}`,`${process.env.TWITCH_CHANNEL2}`]
 });
 
 client.connect().catch(console.error);
@@ -23,12 +23,13 @@ client.connect().catch(console.error);
 client.on('message', (channel, tags, message, self) => {
     if (self) return;
 
-    switch (message.toLocaleLowerCase()) {
-        case '@mikasabxt':
+    var chatmsg = message.toLocaleLowerCase();
+
+    switch (true) {
+        case chatmsg.includes('@mikasabxt'):
             client.say(channel, `Hola, @${tags.username}. Soy Mikasa, bot de Lxght. Mucho gusto :)`)
         break;
-
-        case 'hola @mikasabxt':
+        case chatmsg.includes('mikasabxt'):
             client.say(channel, `Hola, @${tags.username}. Soy Mikasa, bot de Lxght. Mucho gusto :)`)
         break;
     }   
@@ -60,5 +61,14 @@ client.on("cheer", (channel, userstate, message) => {
         client.say(channel, `Gracias por el ` + userstate.bits + ` bit, @${userstate.username}`);
     } else if (userstate.bits >= 2) {
         client.say(channel, `Gracias por los ` + userstate.bits + ` bits, @${userstate.username}`);
+    }
+});
+
+// Raid
+client.on("raided", (channel, username, viewers) => {
+    if (viewers == 1) {
+        client.say(channel, `Gracias por el raid, ` + username + `!`);
+    } else if (viewers >= 2) {
+        client.say(channel, username + `, muchas gracias por el raid de ` + viewers + ` personas!`);
     }
 });
