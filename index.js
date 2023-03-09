@@ -42,14 +42,14 @@ client.on('subscription', (channel, username, method, message, userstate) => {
 
 // Resub
 client.on('resub', (channel, username, months, message, userstate, methods) => {
-    client.say(channel, username + `, muchas gracias por esa suscripción de ` + months + ` meses.`);
+    client.say(channel, username + `, muchas gracias por esa suscripción de ` + userstate.months + ` meses.`);
 
     let cumulativeMonths = ~~userstate["msg-param-cumulative-months"];
 });
 
 // Gifted Subs
 client.on('subgift', (channel, username, streakMonths, recipient, methods, userstate) => {
-    client.say(channel, `Muchas gracias por regalar esas ` + senderCount + ` subs.`);
+    client.say(channel, username + `, muchas gracias por regalar esas ` + userstate.senderCount + ` subs.`);
     
     let senderCount = ~~userstate["msg-param-sender-count"];
 });
