@@ -14,7 +14,10 @@ const client = new tmi.Client({
         username: `${process.env.TWITCH_USERNAME}`,
         password: `oauth:${process.env.TWITCH_OAUTH}`
     },
-    channels: [`${process.env.TWITCH_CHANNEL}`,`${process.env.TWITCH_CHANNEL2}`]
+    channels: [
+        `${process.env.TWITCH_CHANNEL}`,
+        `${process.env.TWITCH_CHANNEL2}`
+    ]
 });
 
 client.connect().catch(console.error);
@@ -38,7 +41,7 @@ client.on('message', (channel, tags, message, self) => {
 // Twitch Events responses
 // Suscriptions
 client.on('subscription', (channel, username, method, message, userstate) => {
-    client.say(channel, `Gracias por esa suscripción ` + username + `.`);
+    client.say(channel, `Muchas gracias por esa suscripción ` + username + `.`);
 });
 
 // Resub
@@ -67,8 +70,13 @@ client.on("cheer", (channel, userstate, message) => {
 // Raid
 client.on("raided", (channel, username, viewers) => {
     if (viewers == 1) {
-        client.say(channel, `Gracias por el raid, ` + username + `!`);
+        client.say(channel, `Muchas gracias por el raid, ` + username + `!`);
     } else if (viewers >= 2) {
         client.say(channel, username + `, muchas gracias por el raid de ` + viewers + ` personas!`);
     }
+});
+
+// Ban
+client.on("ban", (channel, username, reason, userstate) => {
+    client.say(channel, `¡Adiós popo!`);
 });
