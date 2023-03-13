@@ -41,20 +41,32 @@ client.on('message', (channel, tags, message, self) => {
 // Twitch Events responses
 // Suscriptions
 client.on('subscription', (channel, username, method, message, userstate) => {
-    client.say(channel, `Muchas gracias por esa suscripción ` + username + `.`);
+    client.say(channel, `Muchas gracias por esa suscripción ` + username + `.`)
 });
 
 // Resub
 client.on('resub', (channel, username, months, message, userstate, methods) => {
-    client.say(channel, username + `, muchas gracias por esa suscripción de ` + userstate.months + ` meses.`);
+    client.say(channel, username + `, muchas gracias por esa suscripción de ` + userstate.cumulativeMonths + ` meses.`);
 
     let cumulativeMonths = ~~userstate["msg-param-cumulative-months"];
 });
 
 // Gifted Subs
 client.on('subgift', (channel, username, streakMonths, recipient, methods, userstate) => {
-    client.say(channel, username + `, muchas gracias por regalar esas ` + userstate.senderCount + ` subs.`);
-    
+    if (self) return;
+
+    switch (true) {
+        case senderCount <= 5:
+            client.say(channel, `Muchas gracias por la sub! Disfruta los beneficios!`)
+        break;
+        case senderCount <= 50:
+            client.say(channel, `En verdad gracias por regalar esas ` + userstate.senderCount + ` subs a esta comunidad. Si recibiste una no olvides agradecer.`)
+        break;
+        case senderCount <= 100:
+            client.say(channel, `Mil gracias por esas ` + userstate.senderCount + ` subs!! ☆ En serio gracias por apoyar el stream, recuerda agradecer si obtuviste una.`)
+        break;
+    }
+
     let senderCount = ~~userstate["msg-param-sender-count"];
 });
 
@@ -74,9 +86,4 @@ client.on("raided", (channel, username, viewers) => {
     } else if (viewers >= 2) {
         client.say(channel, username + `, muchas gracias por el raid de ` + viewers + ` personas!`);
     }
-});
-
-// Ban
-client.on("ban", (channel, username, reason, userstate) => {
-    client.say(channel, `¡Adiós popo!`);
 });
