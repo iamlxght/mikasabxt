@@ -16,7 +16,8 @@ const client = new tmi.Client({
     },
     channels: [
         `${process.env.TWITCH_CHANNEL}`,
-        `${process.env.TWITCH_CHANNEL2}`
+        `${process.env.TWITCH_CHANNEL2}`,
+        `${process.env.TWITCH_CHANNEL3}`
     ]
 });
 
@@ -53,17 +54,15 @@ client.on('resub', (channel, username, months, message, userstate, methods) => {
 
 // Gifted Subs
 client.on('subgift', (channel, username, streakMonths, recipient, methods, userstate) => {
-    if (self) return;
-
     switch (true) {
         case senderCount <= 5:
             client.say(channel, `Muchas gracias por la sub! Disfruta los beneficios!`)
         break;
         case senderCount <= 50:
-            client.say(channel, `En verdad gracias por regalar esas ` + userstate.senderCount + ` subs a esta comunidad. Si recibiste una no olvides agradecer.`)
+            client.say(channel, `En verdad gracias por regalar esas ` + userstate.months + ` subs a esta comunidad. Si recibiste una no olvides agradecer.`)
         break;
         case senderCount <= 100:
-            client.say(channel, `Mil gracias por esas ` + userstate.senderCount + ` subs!! ☆ En serio gracias por apoyar el stream, recuerda agradecer si obtuviste una.`)
+            client.say(channel, `Mil gracias por esas ` + userstate.months + ` subs!! ☆ En serio gracias por apoyar el stream, recuerda agradecer si obtuviste una.`)
         break;
     }
 
@@ -73,9 +72,9 @@ client.on('subgift', (channel, username, streakMonths, recipient, methods, users
 // Cheers
 client.on("cheer", (channel, userstate, message) => {
     if (userstate.bits == 1) {
-        client.say(channel, `Gracias por el ` + userstate.bits + ` bit, @${userstate.username}`);
+        client.say(channel, `Gracias por el  bit, ` + userstate.username);
     } else if (userstate.bits >= 2) {
-        client.say(channel, `Gracias por los ` + userstate.bits + ` bits, @${userstate.username}`);
+        client.say(channel, `Gracias por los ` + userstate.bits + ` bits, `+ userstate.username);
     }
 });
 
